@@ -1,4 +1,4 @@
-"""Battleship game, as practiced on codecademy, but in python 3. A random boat
+"""Battleship practice game in python 3. A random boat
 is generated and the user has 4 attempts to guess where it is. """
 
 #import random function
