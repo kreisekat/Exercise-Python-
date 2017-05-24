@@ -43,6 +43,7 @@ parser.add_argument("-v", "--verbose", action="store_true", help="Be more verbos
 args = parser.parse_args()
 
 import csv
+#opens the file.csv and makes each line into a dict, the keys being the column names in the first lines
 csvfile = csv.DictReader(open("test_data.csv"))
 
 for row in csvfile:
