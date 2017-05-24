@@ -45,21 +45,22 @@ args = parser.parse_args()
 # csv file as described above, bp_intervall will create an
 # interval around a position in which lower significance
 # peaks are "removed"
+
 def main(csvfile, bp_interval = 1):
-    pass
+
 
 #take in a csv file and get the user to specify bp_interval
 #default = 1
 
+# open csv file
 # parse the csv file into dicts (key = chromosome)
 # while(?) creating the dicts, filter as follows: if position
 # lies within the interval ( position +/- bp_interval) of
 # a previously added position
+# or maybe create dicts first and then go through each dictonary
 
 # output new csv file that only contains the filtered rows
 # should have the same structure as the input
-
-
 
 
 if __name__ == "__main__":
