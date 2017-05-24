@@ -36,7 +36,8 @@ takes CSV file listing " ", chromosome, position, count1, count2, statsval, sequ
 (sorted with highest significance (= lowest statsval) at the top) takes each position
 and removes any following position (with lower significance; higher statsval)
 that lies within +/- the bp_interval (default = 1) around this position.""")
-parser.add_argument("-v", "--verbose", action="store_true", help="Be more verbose")
+parser.add_argument("-v", "--verbose", action="store_true", help="""A more elaborate
+section has not been created yet.""")
 args = parser.parse_args()
 
 
