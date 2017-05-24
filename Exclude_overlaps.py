@@ -42,12 +42,17 @@ that lies within +/- the bp_interval around this position.""")
 parser.add_argument("-v", "--verbose", action="store_true", help="Be more verbose")
 args = parser.parse_args()
 
+import csv
+csvfile = csv.DictReader(open("test_data.csv"))
+
+for row in csvfile:
+    print(row)
 # csv file as described above, bp_intervall will create an
 # interval around a position in which lower significance
 # peaks are "removed"
 
 def main(csvfile, bp_interval = 1):
-
+    pass
 
 #take in a csv file and get the user to specify bp_interval
 #default = 1
