@@ -1,13 +1,8 @@
 #!/usr/bin/env python
 """
-Exclude_overlaps.py takes CSV file listing ,chromosome,position,
-count1,count2,statsval,sequence, (sorted with highest significance (statsval)
-at the top) takes each position and removes any following position
-that lies within +/- the bp_interval around this position.
-
 Copyright (C) 2017, Katrin Kreisel
 
-This program is free software: you can redistribute it and/or modify
+Exclude_overlaps.py is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
