@@ -16,6 +16,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>."""
 
 import sys
+import csv
+
 try:
     import argparse
 except ImportError:
@@ -30,16 +32,16 @@ except ImportError:
 		sys.exit("[Error] Exiting due to missing dependency 'argparser'")
 
 parser = argparse.ArgumentParser(prog=sys.argv[0], description="""Exclude_overlaps.py
-takes CSV file listing ,chromosome,position,
-count1,count2,statsval,sequence, (sorted with highest significance (statsval)
-at the top) takes each position and removes any following position (with lower significance)
-that lies within +/- the bp_interval around this position.""")
+takes CSV file listing " ", chromosome, position, count1, count2, statsval, sequence,
+(sorted with highest significance (= lowest statsval) at the top) takes each position
+and removes any following position (with lower significance; higher statsval)
+that lies within +/- the bp_interval (default = 1) around this position.""")
 parser.add_argument("-v", "--verbose", action="store_true", help="Be more verbose")
 args = parser.parse_args()
 
-import csv
+
 #opens the file.csv and makes each line into a dict, the keys being the column names in the first lines
-csvfile = csv.DictReader(open("test_data.csv"))
+csvfile = csv.DictReader(open("chr11_test_data.csv"))
 
 for row in csvfile:
     print(row)
@@ -65,4 +67,4 @@ def main(csvfile, bp_interval = 1):
 
 
 if __name__ == "__main__":
-    main()
+    main(csvfile)
