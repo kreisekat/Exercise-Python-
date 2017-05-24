@@ -41,16 +41,21 @@ section has not been created yet.""")
 args = parser.parse_args()
 
 
-#opens the file.csv and makes each line into a dict, the keys being the column names in the first lines
-csvfile = csv.DictReader(open("chr11_test_data.csv"))
+#opens the file.csv and makes each line into a dict, the keys of each value
+#being the column names in the first line
+csv_input = csv.DictReader(open("chr11_test_data.csv"))
 
-for row in csvfile:
-    print(row)
+with open("chr11_output.csv", "w") as output:
+    writer = csv.writer(output, delimiter = ' ')
+    for dic in csv_input:
+        writer.writerow(dic)
+        print(dic)
+    
 # csv file as described above, bp_intervall will create an
 # interval around a position in which lower significance
 # peaks are "removed"
 
-def main(csvfile, bp_interval = 1):
+def main(csv_input, bp_interval = 1):
     pass
 
 #take in a csv file and get the user to specify bp_interval
@@ -68,4 +73,4 @@ def main(csvfile, bp_interval = 1):
 
 
 if __name__ == "__main__":
-    main(csvfile)
+    main(csv_input)
