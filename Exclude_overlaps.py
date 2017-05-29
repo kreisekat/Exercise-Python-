@@ -41,15 +41,31 @@ section has not been created yet.""")
 args = parser.parse_args()
 
 
+
+dict_list=[]
+minval = 1.0
+
 #opens the file.csv and makes each line into a dict, the keys of each value
 #being the column names in the first line
-csv_input = csv.DictReader(open("chr11_test_data.csv"))
+with open("chr11_test_data.csv") as input:
+    reader = csv.DictReader(input)
+    for dic in reader:
+        if float(dic["statsval"]) < minval:
+            print(dic)
+#        print(dic)
+#        dict_list.append(dic)
+        
+#print(dict_list)
 
-with open("chr11_output.csv", "w") as output:
-    writer = csv.writer(output, delimiter = ' ')
-    for dic in csv_input:
-        writer.writerow(dic)
-        print(dic)
+
+#with open("chr11_output.csv", "w") as output:
+ #   writer = csv.writer(output, delimiter = ' ')
+#for dic in csv_input:
+#    print(dic)
+        
+#csv_output = csv.reader(open("chr11_output.csv"))
+
+
     
 # csv file as described above, bp_intervall will create an
 # interval around a position in which lower significance
