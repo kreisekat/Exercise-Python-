@@ -51,11 +51,11 @@ with open("chr11_test_data.csv") as input:
     reader = csv.DictReader(input)
     for dic in reader:
         if float(dic["statsval"]) < minval:
-            print(dic)
-#        print(dic)
-#        dict_list.append(dic)
+            dict_list.append(dic)
+            print("was appended")
+
         
-#print(dict_list)
+print(dict_list)
 
 
 #with open("chr11_output.csv", "w") as output:
