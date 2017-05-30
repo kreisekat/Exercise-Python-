@@ -58,6 +58,13 @@ with open("chr11_test_data.csv") as input:
         
 print(dict_list)
 
+keys = dict_list[0].keys()
+
+with open("chr11_output.csv", "w") as output:
+    dict_writer = csv.DictWriter(output, keys)
+    dict_writer.writeheader()
+    dict_writer.writerows(dict_list)
+    
 
 #csv_output = csv.reader(open("chr11_output.csv"))
 
