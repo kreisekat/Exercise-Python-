@@ -42,7 +42,7 @@ section has not been created yet.""")
 args = parser.parse_args()
 
 # open csv file, read  
-with open("chr11_test_data.csv") as input:
+with open("divchr_test_data.csv") as input:
     reader = csv.DictReader(input)
     #convert statsval to float and position to int for sorting and comparison
     not_sorted = []
@@ -56,8 +56,7 @@ with open("chr11_test_data.csv") as input:
    
 #sort dicts by statsval from lowest to highest
 sorted_list = sorted(not_sorted, key = itemgetter("statsval"))
-#print("sorted list")
-#print(sorted_list)
+
 
 # list of dicts- only append dicts if an entry of the same chromosome with position +/- bp interval doesn't exist already
 
@@ -66,11 +65,15 @@ filtered_list = []
 
 filtered_list.append(sorted_list[0])
 
-print("sorted list")
-print(filtered_list)
+def in_interval(filtered_list, sorted_list, bp_interval=1):
+    """ compares all dicts of the sorted_list to the filtered list, if the dict
+    position doesn't lie in a bp interval around previously existing positions
+    add to filtered_list"""
+    for dic in sorted_list:
+        if not any(d["position"] == dic["position"] for d in filtered_list):
+            print(dic)
 
-
-
+in_interval(filtered_list, sorted_list)
 
 def main(csv_input, bp_interval = 1):
     pass
