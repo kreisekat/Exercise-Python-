@@ -56,7 +56,7 @@ with open("divchr_test_data.csv") as input:
    
 #sort dicts by statsval from lowest to highest
 sorted_list = sorted(not_sorted, key = itemgetter("statsval"))
-#print(sorted_list)
+print(sorted_list)
 
 # list of dicts- only append dicts if an entry of the same chromosome with position +/- bp interval doesn't exist already
 
@@ -64,38 +64,49 @@ filtered_list = []
 # adds the first dict (with lowest statsval) to filter -> subsequently higher statsval dicts are checked against this
 
 filtered_list.append(sorted_list[0])
-#print("filtered list start")
-#print(filtered_list)
+print("filtered list start")
+print(filtered_list)
 
 def in_interval(filtered_list, sorted_list, bp_interval=1):
     """ compares all dicts of the sorted_list to the filtered list, if the dict
     position doesn't lie in a bp interval around previously existing positions
     add to filtered_list"""
     for dic in sorted_list:
-        pass
+        
 #comparison for just checking the position without interval
-#        if not any(d["position"] == dic["position"] for d in filtered_list):
+#        if not any(dic["position"] == d["position"] for d in filtered_list):
 #            filtered_list.append(dic)
+        if any(dic["position"] < (d["position"]-bp_interval) for d in filtered_list):
+            filtered_list.append(dic)
+            
+        if any(dic["position"] > (d["position"]+bp_interval) for d in filtered_list):
+            filtered_list.append(dic)
+            
+        #else: do nothing 
+        
+        
+            
 
-#in_interval(filtered_list, sorted_list)
 
-#print("filtered list after in_interval")
-#print(filtered_list)
+in_interval(filtered_list, sorted_list)
+print("")
+print("filtered list after in_interval")
+print(filtered_list)
 
 def main(csv_input, bp_interval = 1):
     pass
     
         
 
-print("test for interval comparison in in_interval")
-val1 = 3.9
-val2 = 6
-bp_interval = 2
-
-if val1 >= (val2-bp_interval) and val1 <= (val2+bp_interval):
-    print("val1 in interval of val2")
-else:
-    print("val1 not in interval of val2")
+#print("test for interval comparison in in_interval")
+#val1 = 3.9
+#val2 = 6
+#bp_interval = 2
+#
+#if val1 >= (val2-bp_interval) and val1 <= (val2+bp_interval):
+#    print("val1 in interval of val2")
+#else:
+#    print("val1 not in interval of val2")
 
 # add first dict from dict reader to new list dict_list
 
