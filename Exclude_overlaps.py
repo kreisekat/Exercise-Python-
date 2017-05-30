@@ -42,29 +42,30 @@ args = parser.parse_args()
 
 
 
-dict_list=[]
-minval = 1.0
+#dict_list=[]
+#minval = 1.0
 
 #opens the file.csv and makes each line into a dict, the keys of each value
 #being the column names in the first line
-with open("chr11_test_data.csv") as input:
-    reader = csv.DictReader(input)
-    for dic in reader:
-        if float(dic["statsval"]) < minval:
-            dict_list.append(dic)
-            #minval = float(dic["statsval"])
-            print("was appended")
-
-        
-print(dict_list)
-
-keys = dict_list[0].keys()
-
-with open("chr11_output.csv", "w") as output:
-    dict_writer = csv.DictWriter(output, keys)
-    dict_writer.writeheader()
-    dict_writer.writerows(dict_list)
-    
+#with open("chr11_test_data.csv") as input:
+#    reader = csv.DictReader(input)
+#    for dic in reader:
+#       
+#        if float(dic["statsval"]) < minval:
+#            dict_list.append(dic)
+#            minval = float(dic["statsval"])
+#            print("was appended")
+#
+#        
+#print(dict_list)
+#
+#keys = dict_list[0].keys()
+#
+#with open("chr11_output.csv", "w") as output:
+#    dict_writer = csv.DictWriter(output, keys)
+#    dict_writer.writeheader()
+#    dict_writer.writerows(dict_list)
+#    
 
 #csv_output = csv.reader(open("chr11_output.csv"))
 
