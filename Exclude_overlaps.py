@@ -41,18 +41,23 @@ parser.add_argument("-v", "--verbose", action="store_true", help="""A more elabo
 section has not been created yet.""")
 args = parser.parse_args()
 
-
+# open csv file, read  
 with open("chr11_test_data.csv") as input:
     reader = csv.DictReader(input)
-    
+    #convert statsval to float and position to int
+    not_sorted = []
     for dic in reader:
         dic["position"] = int(dic["position"])
-        #print(dic)
+#        print(dic)
         dic["statsval"] = float(dic["statsval"])
-        #print(dic)
-    
-    sorted_list = sorted(reader, key = itemgetter("statsval"), reverse = True)
-
+#        print(dic)
+        not_sorted.append(dic)
+        
+#print(not_sorted)    
+   
+        #sort dicts by statsval from lowest to highest
+sorted_list = sorted(not_sorted, key = itemgetter("statsval"))
+print("sorted list")
 print(sorted_list)
 
 
@@ -63,8 +68,7 @@ def main(csv_input, bp_interval = 1):
     
         
 
-# open csv file, read and convert statsval to float and position to int 
-# sort dicts from smallest statsval to highest
+
 
 # add first dict from dict reader to new list dict_list
 
