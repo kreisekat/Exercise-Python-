@@ -59,11 +59,6 @@ with open("chr11_test_data.csv") as input:
 print(dict_list)
 
 
-#with open("chr11_output.csv", "w") as output:
- #   writer = csv.writer(output, delimiter = ' ')
-#for dic in csv_input:
-#    print(dic)
-        
 #csv_output = csv.reader(open("chr11_output.csv"))
 
 
@@ -84,6 +79,8 @@ def main(csv_input, bp_interval = 1):
 # lies within the interval ( position +/- bp_interval) of
 # a previously added position
 # or maybe create dicts first and then go through each dictonary
+
+#script expects a sorted csv, but maybe ensure sorting by sorting it by statsval?
 
 # output new csv file that only contains the filtered rows
 # should have the same structure as the input
