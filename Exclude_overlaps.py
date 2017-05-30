@@ -41,57 +41,23 @@ section has not been created yet.""")
 args = parser.parse_args()
 
 
-
-#dict_list=[]
-#minval = 1.0
-
-#opens the file.csv and makes each line into a dict, the keys of each value
-#being the column names in the first line
-#with open("chr11_test_data.csv") as input:
-#    reader = csv.DictReader(input)
-#    for dic in reader:
-#       
-#        if float(dic["statsval"]) < minval:
-#            dict_list.append(dic)
-#            minval = float(dic["statsval"])
-#            print("was appended")
-#
-#        
-#print(dict_list)
-#
-#keys = dict_list[0].keys()
-#
-#with open("chr11_output.csv", "w") as output:
-#    dict_writer = csv.DictWriter(output, keys)
-#    dict_writer.writeheader()
-#    dict_writer.writerows(dict_list)
-#    
-
-#csv_output = csv.reader(open("chr11_output.csv"))
-
-
-    
-# csv file as described above, bp_intervall will create an
-# interval around a position in which lower significance
-# peaks are "removed"
-
 def main(csv_input, bp_interval = 1):
     pass
 
-#take in a csv file and get the user to specify bp_interval
-#default = 1
+# open csv file, read and sort dicts from smallest statsval to highest
 
-# open csv file
-# parse the csv file into dicts (key = chromosome)
-# while(?) creating the dicts, filter as follows: if position
-# lies within the interval ( position +/- bp_interval) of
-# a previously added position
-# or maybe create dicts first and then go through each dictonary
+# add first dict from dict reader to new list dict_list
 
-#script expects a sorted csv, but maybe ensure sorting by sorting it by statsval?
+# now go through all other entries of dict reader
 
-# output new csv file that only contains the filtered rows
-# should have the same structure as the input
+# call function same_chr to check whether next entry lies on the same chromosome as any previous entry
+# if it returns false: add entry to dict_list
+# if it returns true:
+# call function in_interval to check whether the value of position lies within bp_interval around position
+# if it returns false: add entry to dict_list
+# if it returns true:
+# call function check_statsval to check which statsval is lower -> throw error if statsval of entry is lower than ones from the list
+
 
 
 if __name__ == "__main__":
