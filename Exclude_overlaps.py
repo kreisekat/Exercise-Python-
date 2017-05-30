@@ -44,7 +44,7 @@ args = parser.parse_args()
 # open csv file, read  
 with open("chr11_test_data.csv") as input:
     reader = csv.DictReader(input)
-    #convert statsval to float and position to int
+    #convert statsval to float and position to int for sorting and comparison
     not_sorted = []
     for dic in reader:
         dic["position"] = int(dic["position"])
@@ -53,12 +53,21 @@ with open("chr11_test_data.csv") as input:
 #        print(dic)
         not_sorted.append(dic)
         
-#print(not_sorted)    
    
-        #sort dicts by statsval from lowest to highest
+#sort dicts by statsval from lowest to highest
 sorted_list = sorted(not_sorted, key = itemgetter("statsval"))
+#print("sorted list")
+#print(sorted_list)
+
+# list of dicts- only append dicts if an entry of the same chromosome with position +/- bp interval doesn't exist already
+
+filtered_list = []
+# adds the first dict (with lowest statsval) to filter -> subsequently higher statsval dicts are checked against this
+
+filtered_list.append(sorted_list[0])
+
 print("sorted list")
-print(sorted_list)
+print(filtered_list)
 
 
 
@@ -82,6 +91,7 @@ def main(csv_input, bp_interval = 1):
 # if it returns true:
 # call function check_statsval to check which statsval is lower -> throw error if statsval of entry is lower than ones from the list
 
+# eventual problems: what if statsvals are the same? - how does sorted handle that?
 
 
 if __name__ == "__main__":
