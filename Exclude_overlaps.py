@@ -52,7 +52,7 @@ with open("chr11_test_data.csv") as input:
     for dic in reader:
         if float(dic["statsval"]) < minval:
             dict_list.append(dic)
-            minval = float(dic["statsval"])
+            #minval = float(dic["statsval"])
             print("was appended")
 
         
