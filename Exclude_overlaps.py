@@ -41,22 +41,40 @@ parser.add_argument("-v", "--verbose", action="store_true", help="""A more elabo
 section has not been created yet.""")
 args = parser.parse_args()
 
-# open csv file, read  
-with open("divchr_test_data.csv") as input:
-    reader = csv.DictReader(input)
-    #convert statsval to float and position to int for sorting and comparison
-    not_sorted = []
-    for dic in reader:
-        dic["position"] = int(dic["position"])
-#        print(dic)
-        dic["statsval"] = float(dic["statsval"])
-#        print(dic)
-        not_sorted.append(dic)
+def parse_csv(csv_file):
+    """takes file.csv and parses it into list of dicts and converts position
+    into int and statsval into float. list of dicts is called not_sorted """
+    # open csv file, read  
+    with open(csv_file) as input:
+        reader = csv.DictReader(input)
+        #convert statsval to float and position to int for sorting and comparison
+        not_sorted = []
+        for dic in reader:
+            dic["position"] = int(dic["position"])
+    #        print(dic)
+            dic["statsval"] = float(dic["statsval"])
+    #        print(dic)
+            not_sorted.append(dic)
+        return not_sorted
+    
+#print(parse_csv("divchr_test_data.csv"))
         
-   
+def sort_by_statsval(csv_file):
+    """uses parse_csv to parse a csv file, and changes type of position and statsval, 
+    then sorts it from low to high statsval and returns sorted_list (list of dicts)"""
+    sorted_list = sorted(parse_csv(csv_file), key = itemgetter("statsval"))
+    return sorted_list
+
+print(sort_by_statsval("divchr_test_data.csv"))
+    
 #sort dicts by statsval from lowest to highest
-sorted_list = sorted(not_sorted, key = itemgetter("statsval"))
-print(sorted_list)
+#sorted_list = sorted(not_sorted, key = itemgetter("statsval"))
+#print(sorted_list)
+
+#sort_by_statsval()
+
+
+
 
 # list of dicts- only append dicts if an entry of the same chromosome with position +/- bp interval doesn't exist already
 
@@ -64,8 +82,8 @@ filtered_list = []
 # adds the first dict (with lowest statsval) to filter -> subsequently higher statsval dicts are checked against this
 
 filtered_list.append(sorted_list[0])
-print("filtered list start")
-print(filtered_list)
+#print("filtered list start")
+#print(filtered_list)
 
 def in_interval(filtered_list, sorted_list, bp_interval=1):
     """ compares all dicts of the sorted_list to the filtered list, if the dict
@@ -88,10 +106,10 @@ def in_interval(filtered_list, sorted_list, bp_interval=1):
             
 
 
-in_interval(filtered_list, sorted_list)
-print("")
-print("filtered list after in_interval")
-print(filtered_list)
+#in_interval(filtered_list, sorted_list)
+#print("")
+#print("filtered list after in_interval")
+#print(filtered_list)
 
 def main(csv_input, bp_interval = 1):
     pass
