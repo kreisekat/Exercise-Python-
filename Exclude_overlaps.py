@@ -56,7 +56,7 @@ with open("divchr_test_data.csv") as input:
    
 #sort dicts by statsval from lowest to highest
 sorted_list = sorted(not_sorted, key = itemgetter("statsval"))
-
+print(sorted_list)
 
 # list of dicts- only append dicts if an entry of the same chromosome with position +/- bp interval doesn't exist already
 
@@ -64,6 +64,8 @@ filtered_list = []
 # adds the first dict (with lowest statsval) to filter -> subsequently higher statsval dicts are checked against this
 
 filtered_list.append(sorted_list[0])
+print("filtered list start")
+print(filtered_list)
 
 def in_interval(filtered_list, sorted_list, bp_interval=1):
     """ compares all dicts of the sorted_list to the filtered list, if the dict
@@ -71,9 +73,12 @@ def in_interval(filtered_list, sorted_list, bp_interval=1):
     add to filtered_list"""
     for dic in sorted_list:
         if not any(d["position"] == dic["position"] for d in filtered_list):
-            print(dic)
+            filtered_list.append(dic)
 
 in_interval(filtered_list, sorted_list)
+
+print("filtered list after in_interval")
+print(filtered_list)
 
 def main(csv_input, bp_interval = 1):
     pass
