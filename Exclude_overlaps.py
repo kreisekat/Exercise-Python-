@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>."""
 
 import sys
 import csv
+from operator import itemgetter
 
 try:
     import argparse
@@ -41,10 +42,29 @@ section has not been created yet.""")
 args = parser.parse_args()
 
 
+with open("chr11_test_data.csv") as input:
+    reader = csv.DictReader(input)
+    
+    for dic in reader:
+        dic["position"] = int(dic["position"])
+        #print(dic)
+        dic["statsval"] = float(dic["statsval"])
+        #print(dic)
+    
+    sorted_list = sorted(reader, key = itemgetter("statsval"), reverse = True)
+
+print(sorted_list)
+
+
+
+
 def main(csv_input, bp_interval = 1):
     pass
+    
+        
 
-# open csv file, read and sort dicts from smallest statsval to highest
+# open csv file, read and convert statsval to float and position to int 
+# sort dicts from smallest statsval to highest
 
 # add first dict from dict reader to new list dict_list
 
