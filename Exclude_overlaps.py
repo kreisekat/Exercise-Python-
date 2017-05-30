@@ -60,35 +60,32 @@ def parse_csv(csv_file):
 #print(parse_csv("divchr_test_data.csv"))
         
 def sort_by_statsval(csv_file):
-    """uses parse_csv to parse a csv file, and changes type of position and statsval, 
-    then sorts it from low to high statsval and returns sorted_list (list of dicts)"""
+    """uses parse_csv to parse a csv file, and changes type of position and statsval,
+    into int and float respectively, then sorts it from low to high statsval and 
+    returns sorted_list (list of dicts)"""
     sorted_list = sorted(parse_csv(csv_file), key = itemgetter("statsval"))
     return sorted_list
 
-print(sort_by_statsval("divchr_test_data.csv"))
+#print(sort_by_statsval("divchr_test_data.csv"))
     
-#sort dicts by statsval from lowest to highest
-#sorted_list = sorted(not_sorted, key = itemgetter("statsval"))
-#print(sorted_list)
-
-#sort_by_statsval()
 
 
+# list of dicts- only append dicts if an entry with position +/- bp interval doesn't exist already
 
-
-# list of dicts- only append dicts if an entry of the same chromosome with position +/- bp interval doesn't exist already
-
-filtered_list = []
-# adds the first dict (with lowest statsval) to filter -> subsequently higher statsval dicts are checked against this
-
-filtered_list.append(sorted_list[0])
+#filtered_list = []
+## adds the first dict (with lowest statsval) to filter -> subsequently higher statsval dicts are checked against this
+#
+#filtered_list.append(sorted_list[0])
 #print("filtered list start")
 #print(filtered_list)
 
-def in_interval(filtered_list, sorted_list, bp_interval=1):
+def in_interval(csv_file, bp_interval=1):
     """ compares all dicts of the sorted_list to the filtered list, if the dict
     position doesn't lie in a bp interval around previously existing positions
     add to filtered_list"""
+    sorted_list = sort_by_statsval(csv_file)
+    filtered_list = []
+    filtered_list.append(sorted_list[0])
     for dic in sorted_list:
         
 #comparison for just checking the position without interval
@@ -102,14 +99,16 @@ def in_interval(filtered_list, sorted_list, bp_interval=1):
             
         #else: do nothing 
         
+    return filtered_list
+        
         
             
 
 
-#in_interval(filtered_list, sorted_list)
-#print("")
-#print("filtered list after in_interval")
-#print(filtered_list)
+
+print("")
+print("filtered list after in_interval")
+print(in_interval("divchr_test_data.csv", 1))
 
 def main(csv_input, bp_interval = 1):
     pass
