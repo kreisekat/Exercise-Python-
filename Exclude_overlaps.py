@@ -67,7 +67,7 @@ def sort_by_statsval(csv_file):
     sorted_list = sorted(parse_csv(csv_file), key = itemgetter("statsval"))
     return sorted_list
 
-print(sort_by_statsval("divchr_short_test_data.csv"))
+#print(sort_by_statsval("divchr_short_test_data.csv"))
     
 
 
@@ -82,8 +82,8 @@ def in_interval(csv_file, bp_interval=1):
     new_list = []
     new_list.append(sorted_list[0])
     
-    for dictionary in new_list:
-        for dic in sorted_list:
+    for dic in sorted_list:
+        for dictionary in new_list:
             min_interval = dictionary["position"] - bp_interval
             max_interval = dictionary["position"] + bp_interval
             print("in the nested forloop")
