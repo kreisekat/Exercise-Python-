@@ -86,9 +86,11 @@ def in_interval(csv_file, bp_interval=1):
         for dic in sorted_list:
             min_interval = dictionary["position"] - bp_interval
             max_interval = dictionary["position"] + bp_interval
+            print("in the nested forloop")
                                      
             if dic["position"] < min_interval or dic["position"] > max_interval:
                 new_list.append(dic)
+                print("in the if statement of the nested for loop")
                 
     return new_list
     
