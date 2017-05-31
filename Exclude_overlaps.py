@@ -78,18 +78,31 @@ print(sort_by_statsval("divchr_short_test_data.csv"))
 
 
 def in_interval(csv_file, bp_interval=1):
-    """ compares all dicts of the sorted_list to the filtered list, if the dict
-    position doesn't lie in a bp interval around previously existing positions
-    add to filtered_list"""
     sorted_list = sort_by_statsval(csv_file)
-    filtered_list = []
-    filtered_list.append(sorted_list[0])
-    print("filtered_list")
-    print(filtered_list)
-    for dic in sorted_list:
-        if not any(dic["position"] == d["position"] for d in filtered_list):
-            filtered_list.append(dic)
-            
+    new_list = []
+    new_list.append(sorted_list[0])
+    
+    for dictionary in new_list:
+        for dic in sorted_list:
+            min_interval = dictionary["position"] - bp_interval
+            max_interval = dictionary["position"] + bp_interval
+                                     
+            if dic["position"] < min_interval or dic["position"] > max_interval:
+                new_list.append(dic)
+                
+    return new_list
+    
+#    """ compares all dicts of the sorted_list to the filtered list, if the dict
+#    position doesn't lie in a bp interval around previously existing positions
+#    add to filtered_list"""
+#    sorted_list = sort_by_statsval(csv_file)
+#    filtered_list = []
+#    filtered_list.append(sorted_list[0])
+#
+#    for dic in sorted_list:
+#        if not any(dic["position"] == d["position"] for d in filtered_list):
+#            filtered_list.append(dic)
+#            
 #            if not dic["position"] in range((d["position"]-bp_interval), (d["position"]+bp_interval)) for d in filtered_list:
 #                filtered_list.append(dic)
         
@@ -104,7 +117,7 @@ def in_interval(csv_file, bp_interval=1):
             
         #else: do nothing 
         
-    return filtered_list
+#    return filtered_list
 
         
             
