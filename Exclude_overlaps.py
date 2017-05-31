@@ -89,13 +89,13 @@ def in_interval(csv_file, bp_interval=1):
     for dic in sorted_list:
         
 #comparison for just checking the position without interval
-#        if not any(dic["position"] == d["position"] for d in filtered_list):
+        if not any(dic["position"] == d["position"] for d in filtered_list):
+            filtered_list.append(dic)
+#        if any(dic["position"] < (d["position"]-bp_interval) for d in filtered_list):
 #            filtered_list.append(dic)
-        if any(dic["position"] < (d["position"]-bp_interval) for d in filtered_list):
-            filtered_list.append(dic)
-            
-        if any(dic["position"] > (d["position"]+bp_interval) for d in filtered_list):
-            filtered_list.append(dic)
+#            
+#        if any(dic["position"] > (d["position"]+bp_interval) for d in filtered_list):
+#            filtered_list.append(dic)
             
         #else: do nothing 
         
@@ -108,7 +108,7 @@ def in_interval(csv_file, bp_interval=1):
 
 print("")
 print("filtered list after in_interval")
-print(in_interval("divchr_test_data.csv", 1))
+print(in_interval("divchr_short_test_data.csv", 1))
 
 def main(csv_input, bp_interval = 1):
     pass
@@ -141,4 +141,4 @@ def main(csv_input, bp_interval = 1):
 
 
 if __name__ == "__main__":
-    main(csv_input)
+    main("divchr_short_test_data.csv")
