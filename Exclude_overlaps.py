@@ -41,6 +41,7 @@ parser.add_argument("-v", "--verbose", action="store_true", help="""A more elabo
 section has not been created yet.""")
 args = parser.parse_args()
 
+
 def parse_csv(csv_file):
     """takes file.csv and parses it into list of dicts and converts position
     into int and statsval into float. list of dicts is called not_sorted """
@@ -57,7 +58,7 @@ def parse_csv(csv_file):
             not_sorted.append(dic)
         return not_sorted
     
-#print(parse_csv("divchr_test_data.csv"))
+#print(parse_csv("divchr_short_test_data.csv"))
         
 def sort_by_statsval(csv_file):
     """uses parse_csv to parse a csv file, and changes type of position and statsval,
@@ -66,18 +67,15 @@ def sort_by_statsval(csv_file):
     sorted_list = sorted(parse_csv(csv_file), key = itemgetter("statsval"))
     return sorted_list
 
-#print(sort_by_statsval("divchr_test_data.csv"))
+print(sort_by_statsval("divchr_short_test_data.csv"))
     
 
 
 # list of dicts- only append dicts if an entry with position +/- bp interval doesn't exist already
 
-#filtered_list = []
-## adds the first dict (with lowest statsval) to filter -> subsequently higher statsval dicts are checked against this
-#
-#filtered_list.append(sorted_list[0])
-#print("filtered list start")
-#print(filtered_list)
+
+# adds the first dict (with lowest statsval) to filter -> subsequently higher statsval dicts are checked against this
+
 
 def in_interval(csv_file, bp_interval=1):
     """ compares all dicts of the sorted_list to the filtered list, if the dict
@@ -86,11 +84,18 @@ def in_interval(csv_file, bp_interval=1):
     sorted_list = sort_by_statsval(csv_file)
     filtered_list = []
     filtered_list.append(sorted_list[0])
+    print("filtered_list")
+    print(filtered_list)
     for dic in sorted_list:
-        
-#comparison for just checking the position without interval
         if not any(dic["position"] == d["position"] for d in filtered_list):
             filtered_list.append(dic)
+            
+#            if not dic["position"] in range((d["position"]-bp_interval), (d["position"]+bp_interval)) for d in filtered_list:
+#                filtered_list.append(dic)
+        
+#comparison for just checking the position without interval
+#        if not any(dic["position"] == d["position"] for d in filtered_list):
+#            filtered_list.append(dic)
 #        if any(dic["position"] < (d["position"]-bp_interval) for d in filtered_list):
 #            filtered_list.append(dic)
 #            
@@ -100,14 +105,13 @@ def in_interval(csv_file, bp_interval=1):
         #else: do nothing 
         
     return filtered_list
-        
+
         
             
 
 
 
-print("")
-print("filtered list after in_interval")
+
 print(in_interval("divchr_short_test_data.csv", 1))
 
 def main(csv_input, bp_interval = 1):
