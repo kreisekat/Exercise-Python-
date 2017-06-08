@@ -79,6 +79,7 @@ def sort_by_statsval(csv_file):
 
 def in_interval(csv_file, bp_interval=1):
     sorted_list = sort_by_statsval(csv_file)
+    global new_list
     new_list = []
     new_list.append(sorted_list[0])
     #print(new_list)
@@ -86,23 +87,23 @@ def in_interval(csv_file, bp_interval=1):
     
     for dic in sorted_list:
         print("in the outer for loop")
-        
-        if not check_list(dic, new_list):
-          new_list.append(dic)
+        if not in_list(dic, new_list, bp_interval):
+            new_list.append(dic)
+            print("list appended")
     return new_list
-          
-def check_list(dic, new_list):
-    return False
 
-#        
-#        for dictionary in new_list:
-#            mini = dictionary["position"] - bp_interval
-#            maxi = dictionary["position"] + bp_interval
-#            print("in the nested forloop")
-#            new_list.append(dic)
-#            if dic["position"] < mini and dic["position"] > maxi:
-#                print("in the if statement of the nested for loop")
-#                new_list.append(dic)
+          
+def in_list(dic, new_list, bp_interval):
+    """returns True if position of the tested dic lies in any of the 
+    intervals around positions from dictionaries in new_list"""
+    for dictionary in new_list:
+        mini = dictionary["position"] - bp_interval
+        maxi = dictionary["position"] + bp_interval
+        if dic["position"] < mini and dic["position"] > maxi:
+            return False
+        else:
+            return True
+
     
             
     
