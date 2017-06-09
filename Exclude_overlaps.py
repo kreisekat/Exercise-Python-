@@ -43,31 +43,34 @@ args = parser.parse_args()
 
 
 def parse_csv(csv_file):
-    """takes file.csv and parses it into list of dicts and converts position
-    into int and statsval into float. list of dicts is called not_sorted """
+    """takes file.csv and parses it into list of dictionaries. While doing so
+    it converts dictionary["position"] into an integer and dictionary["statsval"] 
+    into float. it returns this list of dicts with the name not_sorted """
     # open csv file, read  
     with open(csv_file) as input:
         reader = csv.DictReader(input)
-        #convert statsval to float and position to int for sorting and comparison
+        # list of dic with converted values for position and statsval
         not_sorted = []
         for dic in reader:
+            #convert value (type strg) for the key "position" to integer
             dic["position"] = int(dic["position"])
-    #        print(dic)
+            #convert value (type strg) for key "statval" to float
             dic["statsval"] = float(dic["statsval"])
-    #        print(dic)
+            # adds converted dic to list
             not_sorted.append(dic)
         return not_sorted
     
 #print(parse_csv("divchr_short_test_data.csv"))
         
 def sort_by_statsval(csv_file):
-    """uses parse_csv to parse a csv file, and changes type of position and statsval,
-    into int and float respectively, then sorts it from low to high statsval and 
-    returns sorted_list (list of dicts)"""
+    """uses parse_csv to parse a csv file, which changes type of position and statsval,
+    into int and float respectively, while creating a list of dictionaries called
+    not_sorted. Then this function sorts this list of dictionaries from low to high 
+    statsval and returns sorted_list (list of dicts)"""
     sorted_list = sorted(parse_csv(csv_file), key = itemgetter("statsval"))
     return sorted_list
 
-#print(sort_by_statsval("divchr_short_test_data.csv"))
+
     
 
 
@@ -77,100 +80,59 @@ def sort_by_statsval(csv_file):
 # adds the first dict (with lowest statsval) to filter -> subsequently higher statsval dicts are checked against this
 
 
-def in_interval(csv_file, bp_interval=1):
-    sorted_list = sort_by_statsval(csv_file)
-    global new_list
-    new_list = []
-    new_list.append(sorted_list[0])
-    #print(new_list)
-
+def in_intervals(csv_file, bp_interval=1):
+    """in_intervals takes a csv_file, parses it into a list of dictionaries 
+    which is then sorted into "sorted_list" by calling function sort_by_statsval
+    (which itself calls parse_csv to get an unsorted list of dicts)
+    A new list of dictionaries, filtered_list, is created, where only
+    dictionaries are appended whose positions do not lie in an interval (bp_interval)
+    around positions that are already in the list."""
     
+    sorted_list = sort_by_statsval(csv_file)
+#    global new_list
+    #new,filtered list
+    filtered_list = []
+    #appends first dictionary from sorted_list, because this has the lowest statsval = highest significance
+    filtered_list.append(sorted_list[0])
+
+    # every position in following dictionaries in sorted_list is checked 
+    # against the positions(or more correctly an interval around this position)
+    # from the dictionaries in the filtered_list by calling in_list
+    # if the position is not in the filtered_list yet, the respective dict is appended
     for dic in sorted_list:
-        print("in the outer for loop")
-        if not in_list(dic, new_list, bp_interval):
-            new_list.append(dic)
-            print("list appended")
-    return new_list
+        #if position in dic is not already in an interval around positions in filtered_list it is appended to filtered_list
+        if not in_filtered_list(dic, filtered_list, bp_interval):
+            filtered_list.append(dic)
+            #print("list appended")
+    return filtered_list
 
           
-def in_list(dic, new_list, bp_interval):
+def in_filtered_list(dic, filtered_list, bp_interval):
     """returns True if position of the tested dic lies in any of the 
     intervals around positions from dictionaries in new_list"""
-    for dictionary in new_list:
+    
+    result = False
+
+    #dic["position"] is checked agains all dictionary["position"]+/- bp_interval
+    for dictionary in filtered_list:
         mini = dictionary["position"] - bp_interval
         maxi = dictionary["position"] + bp_interval
-        if dic["position"] < mini and dic["position"] > maxi:
-            return False
-        else:
-            return True
-
-    
+        if dic["position"] >= mini and dic["position"] <= maxi:
+            result = True
+            break
             
-    
-#    return new_list
-            
-#    """ compares all dicts of the sorted_list to the filtered list, if the dict
-#    position doesn't lie in a bp interval around previously existing positions
-#    add to filtered_list"""
-#    sorted_list = sort_by_statsval(csv_file)
-#    filtered_list = []
-#    filtered_list.append(sorted_list[0])
-#
-#    for dic in sorted_list:
-#        if not any(dic["position"] == d["position"] for d in filtered_list):
-#            filtered_list.append(dic)
-#            
-#            if not dic["position"] in range((d["position"]-bp_interval), (d["position"]+bp_interval)) for d in filtered_list:
-#                filtered_list.append(dic)
+    return result
         
-#comparison for just checking the position without interval
-#        if not any(dic["position"] == d["position"] for d in filtered_list):
-#            filtered_list.append(dic)
-#        if any(dic["position"] < (d["position"]-bp_interval) for d in filtered_list):
-#            filtered_list.append(dic)
-#            
-#        if any(dic["position"] > (d["position"]+bp_interval) for d in filtered_list):
-#            filtered_list.append(dic)
             
-        #else: do nothing 
-        
-#    return filtered_list
-dic = [('', '4'), ('chromosome', 'chr11_ref_v2'), ('position', 20), ('c1', '85'), ('c2', '41'), ('statsval', 0.2), ('seq', 'TGCTTCTTTT')]
+    
 
-print(in_list(dic, new_list, 2))        
-            
-
-
-
-print("after in_interval")
-print(in_interval("divchr_short_test_data.csv", 1))
+print(in_intervals("divchr_short_test_data.csv", 1))
 
 def main(csv_input, bp_interval = 1):
+    #call finalized function here
     pass
     
-        
-
-#print("test for interval comparison in in_interval")
-#val1 = 3.9
-#val2 = 6
-#bp_interval = 2
-#
-#if val1 >= (val2-bp_interval) and val1 <= (val2+bp_interval):
-#    print("val1 in interval of val2")
-#else:
-#    print("val1 not in interval of val2")
-
-# add first dict from dict reader to new list dict_list
-
-# now go through all other entries of dict reader
-
-# call function same_chr to check whether next entry lies on the same chromosome as any previous entry
-# if it returns false: add entry to dict_list
-# if it returns true:
-# call function in_interval to check whether the value of position lies within bp_interval around position
-# if it returns false: add entry to dict_list
-# if it returns true:
-# call function check_statsval to check which statsval is lower -> throw error if statsval of entry is lower than ones from the list
+ 
 
 # eventual problems: what if statsvals are the same? - how does sorted handle that?
 
