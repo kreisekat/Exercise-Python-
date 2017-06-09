@@ -96,7 +96,7 @@ def in_interval(csv_file, bp_interval=1):
 def in_list(dic, new_list, bp_interval):
     """returns True if position of the tested dic lies in any of the 
     intervals around positions from dictionaries in new_list"""
-    for dictionary in list(new_list):
+    for dictionary in new_list:
         mini = dictionary["position"] - bp_interval
         maxi = dictionary["position"] + bp_interval
         if dic["position"] < mini and dic["position"] > maxi:
@@ -135,8 +135,9 @@ def in_list(dic, new_list, bp_interval):
         #else: do nothing 
         
 #    return filtered_list
+dic = [('', '4'), ('chromosome', 'chr11_ref_v2'), ('position', 20), ('c1', '85'), ('c2', '41'), ('statsval', 0.2), ('seq', 'TGCTTCTTTT')]
 
-        
+print(in_list(dic, new_list, 2))        
             
 
 
