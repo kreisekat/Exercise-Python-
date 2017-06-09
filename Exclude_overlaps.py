@@ -97,11 +97,11 @@ def in_intervals(csv_file, bp_interval=1):
             #print("list appended")
     return filtered_list
 
-#this should only return true if it lies in interval and on the same chromosome!
-          
+    
 def in_filtered_list(dic, filtered_list, bp_interval):
     """returns True if position of the tested dic lies in any of the 
-    intervals around positions from dictionaries in filtered_list"""
+    intervals around positions from dictionaries in filtered_list and if this is
+    the same chromosome"""
     
     result = False
 
@@ -114,17 +114,28 @@ def in_filtered_list(dic, filtered_list, bp_interval):
             break
             
     return result
-        
-            
-    
 
-print(in_intervals("divchr_short_test_data.csv", 2))
 
-def main(csv_input, bp_interval = 1):
-    #call finalized function here
-    pass
-    
- 
+def filtered_list_to_csv(filtered_list):
+    keys = filtered_list[0].keys()
+    with open("output.csv", "w") as output:
+        dict_writer = csv.DictWriter(output, keys)
+        dict_writer.writeheader()
+        dict_writer.writerows(filtered_list)
+    return output
+
+
+print(in_intervals("divchr_simple_values.csv", 2))
+
+
+#def main(csv_input, bp_interval = 1):
+#    filtered_list = in_intervals(csv_input, bp_interval)
+#    print("csv was filtered")
+#    filtered_list_to_csv(filtered_list)
+#    print("output file was created")
+#    
+#    
+# 
 
 # eventual problems: what if statsvals are the same? - how does sorted handle that?
 
