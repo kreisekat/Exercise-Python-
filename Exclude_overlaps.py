@@ -96,7 +96,7 @@ def in_interval(csv_file, bp_interval=1):
 def in_list(dic, new_list, bp_interval):
     """returns True if position of the tested dic lies in any of the 
     intervals around positions from dictionaries in new_list"""
-    for dictionary in new_list:
+    for dictionary in list(new_list):
         mini = dictionary["position"] - bp_interval
         maxi = dictionary["position"] + bp_interval
         if dic["position"] < mini and dic["position"] > maxi:
