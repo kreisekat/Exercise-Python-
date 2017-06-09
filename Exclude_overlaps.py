@@ -60,7 +60,6 @@ def parse_csv(csv_file):
             not_sorted.append(dic)
         return not_sorted
     
-#print(parse_csv("divchr_short_test_data.csv"))
         
 def sort_by_statsval(csv_file):
     """uses parse_csv to parse a csv file, which changes type of position and statsval,
@@ -70,14 +69,6 @@ def sort_by_statsval(csv_file):
     sorted_list = sorted(parse_csv(csv_file), key = itemgetter("statsval"))
     return sorted_list
 
-
-    
-
-
-# list of dicts- only append dicts if an entry with position +/- bp interval doesn't exist already
-
-
-# adds the first dict (with lowest statsval) to filter -> subsequently higher statsval dicts are checked against this
 
 
 def in_intervals(csv_file, bp_interval=1):
@@ -89,10 +80,10 @@ def in_intervals(csv_file, bp_interval=1):
     around positions that are already in the list."""
     
     sorted_list = sort_by_statsval(csv_file)
-#    global new_list
     #new,filtered list
     filtered_list = []
-    #appends first dictionary from sorted_list, because this has the lowest statsval = highest significance
+    #appends first dictionary from sorted_list, because this has the 
+    #lowest statsval = highest significance, because it is sorted by that
     filtered_list.append(sorted_list[0])
 
     # every position in following dictionaries in sorted_list is checked 
@@ -106,10 +97,11 @@ def in_intervals(csv_file, bp_interval=1):
             #print("list appended")
     return filtered_list
 
+#this should only return true if it lies in interval and on the same chromosome!
           
 def in_filtered_list(dic, filtered_list, bp_interval):
     """returns True if position of the tested dic lies in any of the 
-    intervals around positions from dictionaries in new_list"""
+    intervals around positions from dictionaries in filtered_list"""
     
     result = False
 
@@ -117,7 +109,7 @@ def in_filtered_list(dic, filtered_list, bp_interval):
     for dictionary in filtered_list:
         mini = dictionary["position"] - bp_interval
         maxi = dictionary["position"] + bp_interval
-        if dic["position"] >= mini and dic["position"] <= maxi:
+        if dic["position"] >= mini and dic["position"] <= maxi and dic["chromosome"] == dictionary["chromosome"]:
             result = True
             break
             
@@ -126,7 +118,7 @@ def in_filtered_list(dic, filtered_list, bp_interval):
             
     
 
-print(in_intervals("divchr_short_test_data.csv", 1))
+print(in_intervals("divchr_short_test_data.csv", 2))
 
 def main(csv_input, bp_interval = 1):
     #call finalized function here
