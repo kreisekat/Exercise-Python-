@@ -1,4 +1,5 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+
 """
 Copyright (C) 2017, Katrin Kreisel
 
@@ -126,13 +127,13 @@ def main():
                         A new list of dictionaries is created, filtering out positions of 
                         lower significance (higher statsval) that lie withing an interval 
                         (bp_interval) around positions of higher significance.  The user should 
-                        make sure to specify the name or path of the input file (.csv), the 
+                        make sure to specify the name or of the input file (.csv), the 
                         bp_interval as a whole number (will be converted to integer, by default 1) 
-                        and the name/path of the desired output file .csv.""")
+                        and the name of the desired output file .csv.""")
     parser.add_argument("-bp", "--bp_interval", default = 1, type = int, help ="""Please specify a bp_interval, default = 1. 
                         Less significant peaks will be filtered out from positions of more significant peaks +/- this interval, 
                         if they are on the same chromosome.""")
-    parser.add_argument("-i", "--input", required = True, help = "Please specify what your input file is called or its path.")
+    parser.add_argument("-i", "--input", required = True, help = "Please specify what your input file is called.")
     parser.add_argument("-o", "--output", required = True, help = "Please specify what your outputfile is supposed to be called.")
     
     try:
