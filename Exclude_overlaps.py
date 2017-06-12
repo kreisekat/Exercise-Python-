@@ -130,18 +130,18 @@ def main():
                         make sure to specify the name or of the input file (.csv), the 
                         bp_interval as a whole number (will be converted to integer, by default 1) 
                         and the name of the desired output file .csv.""")
-    parser.add_argument("-bp", "--bp_interval", default = 1, type = int, help ="""Please specify a bp_interval, default = 1. 
+    parser.add_argument("-bp", "--bp_interval", default=1, type=int, help="""Please specify a bp_interval, default = 1. 
                         Less significant peaks will be filtered out from positions of more significant peaks +/- this interval, 
                         if they are on the same chromosome.""")
-    parser.add_argument("-i", "--input", required = True, help = "Please specify what your input file is called. It has to be '.csv'")
-    parser.add_argument("-o", "--output", required = True, help = "Please specify what your outputfile is supposed to be called. It has to be '.csv'")
+    parser.add_argument("-i", "--input", required=True, help="Please specify what your input file is called. It has to be '.csv'")
+    parser.add_argument("-o", "--output", required=True, help="Please specify what your outputfile is supposed to be called. It has to be '.csv'")
     
     try:
         args = parser.parse_args()
         if not (args.input or args.output):
             parser.error("Please specify the input csv file and or the desired output csv file name.")
         elif type(args.bp_interval) != int:
-            parser.error("Please make sure you enter a number for bp_interval")
+            parser.error("Please make sure you enter a whole number for bp_interval")
         else:
             filtered_list = in_intervals(args.input, args.bp_interval)
             print("csv was filtered")
