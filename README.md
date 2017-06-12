@@ -10,6 +10,6 @@ Statsval is converted to float and position is converted to integer.
 A new list of dictionaries is created, filtering out positions of 
 lower significance (higher statsval) that lie withing an interval 
 (bp_interval) around positions of higher significance.  The user should 
-make sure to specify the name or path of the input file (.csv), the 
+make sure to specify the name of the input file (.csv), the 
 bp_interval as a whole number (will be converted to integer, by default 1) 
-and the name/path of the desired output file .csv.
+and the name of the desired output file .csv.
