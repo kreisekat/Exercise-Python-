@@ -19,27 +19,27 @@ import sys
 import csv
 from operator import itemgetter
 
-try:
-    import argparse
-except ImportError:
-	sys.stderr.write("[Error] The python module 'argparse' is not installed\n")
-	sys.stderr.write("[--] Would you like to install it now using 'sudo easy_install' [Y/N]? ")
-	answer = sys.stdin.readline()
-	if answer[0].lower() == "y":
-		sys.stderr.write("[--] Running 'sudo easy_install argparse'\n")
-		from subprocess import call
-		call(["sudo", "easy_install", "argparse"])
-	else:
-		sys.exit("[Error] Exiting due to missing dependency 'argparser'")
-
-parser = argparse.ArgumentParser(prog=sys.argv[0], description="""Exclude_overlaps.py
-takes CSV file listing " ", chromosome, position, count1, count2, statsval, sequence,
-(sorted with highest significance (= lowest statsval) at the top) takes each position
-and removes any following position (with lower significance; higher statsval)
-that lies within +/- the bp_interval (default = 1) around this position.""")
-parser.add_argument("-v", "--verbose", action="store_true", help="""A more elaborate
-section has not been created yet.""")
-args = parser.parse_args()
+#try:
+#    import argparse
+#except ImportError:
+#	sys.stderr.write("[Error] The python module 'argparse' is not installed\n")
+#	sys.stderr.write("[--] Would you like to install it now using 'sudo easy_install' [Y/N]? ")
+#	answer = sys.stdin.readline()
+#	if answer[0].lower() == "y":
+#		sys.stderr.write("[--] Running 'sudo easy_install argparse'\n")
+#		from subprocess import call
+#		call(["sudo", "easy_install", "argparse"])
+#	else:
+#		sys.exit("[Error] Exiting due to missing dependency 'argparser'")
+#
+#parser = argparse.ArgumentParser(prog=sys.argv[0], description="""Exclude_overlaps.py
+#takes CSV file listing " ", chromosome, position, count1, count2, statsval, sequence,
+#(sorted with highest significance (= lowest statsval) at the top) takes each position
+#and removes any following position (with lower significance; higher statsval)
+#that lies within +/- the bp_interval (default = 1) around this position.""")
+#parser.add_argument("-v", "--verbose", action="store_true", help="""A more elaborate
+#section has not been created yet.""")
+#args = parser.parse_args()
 
 
 def parse_csv(csv_file):
@@ -116,29 +116,65 @@ def in_filtered_list(dic, filtered_list, bp_interval):
     return result
 
 
-def filtered_list_to_csv(filtered_list):
+def filtered_list_to_csv(filtered_list, output_name):
+    """Takes list of dictionaries (filtered_list) and creates an output csv file,
+    where the first line is the keys of one dictionary and all dictionary values
+    are written underneath it line by line."""
+    #makes keys of first dictionaries the "column names" in the csv output file
     keys = filtered_list[0].keys()
-    with open("output.csv", "w") as output:
+    with open(output_name, "w") as output:
         dict_writer = csv.DictWriter(output, keys)
         dict_writer.writeheader()
         dict_writer.writerows(filtered_list)
     return output
 
 
-print(in_intervals("divchr_simple_values.csv", 2))
+#filtered_list_to_csv(in_intervals("test_data.csv", 2))
 
 
-#def main(csv_input, bp_interval = 1):
-#    filtered_list = in_intervals(csv_input, bp_interval)
-#    print("csv was filtered")
-#    filtered_list_to_csv(filtered_list)
-#    print("output file was created")
-#    
-#    
-# 
 
-# eventual problems: what if statsvals are the same? - how does sorted handle that?
+
+def main():
+    try:
+        import argparse
+    except ImportError:
+        sys.stderr.write("[Error] The python module 'argparse' is not installed\n")
+        sys.stderr.write("[--] Would you like to install it now using 'sudo easy_install' [Y/N]? ")
+        answer = sys.stdin.readline()
+        if answer[0].lower() == "y":
+            sys.stderr.write("[--] Running 'sudo easy_install argparse'\n")
+            from subprocess import call
+            call(["sudo", "easy_install", "argparse"])
+        else:
+            sys.exit("[Error] Exiting due to missing dependency 'argparser'")
+
+    parser = argparse.ArgumentParser(prog=sys.argv[0], description="""redo description""")
+    parser.add_argument("-v", "--verbose", action="store_true", help="""A more elaborate section has not been created yet.""")
+    parser.add_argument("-bp", "--bp_interval", default = 1, type = int)
+    parser.add_argument("-i", "--input", required = True, help = "Please specify what your input file is called or it's path")
+    parser.add_argument("-o", "--output", required = True, help = "Please specify what your outputfile is supposed to be called")
+    try:
+        args = parser.parse_args()
+        
+        if not (args.inpur or args.output):
+            parser.error("please specify the input csv file and or the desired output csv file name.")
+        
+        elif type(args.bp_interval) != int:
+            parser.error("please make sure you enter a number for bp_interval")
+    
+        else:
+
+            filtered_list = in_intervals(args.input, args.bp_interval)
+            print("csv was filtered")
+            filtered_list_to_csv(filtered_list, args.output)
+            print("output file was created")
+            
+            
+    except IOError as e:
+        parser.error(str(e))
+    
+ 
 
 
 if __name__ == "__main__":
-    main("divchr_short_test_data.csv")
+    main()
