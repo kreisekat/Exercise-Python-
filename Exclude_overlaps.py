@@ -133,8 +133,8 @@ def main():
     parser.add_argument("-bp", "--bp_interval", default = 1, type = int, help ="""Please specify a bp_interval, default = 1. 
                         Less significant peaks will be filtered out from positions of more significant peaks +/- this interval, 
                         if they are on the same chromosome.""")
-    parser.add_argument("-i", "--input", required = True, help = "Please specify what your input file is called.")
-    parser.add_argument("-o", "--output", required = True, help = "Please specify what your outputfile is supposed to be called.")
+    parser.add_argument("-i", "--input", required = True, help = "Please specify what your input file is called. It has to be '.csv'")
+    parser.add_argument("-o", "--output", required = True, help = "Please specify what your outputfile is supposed to be called. It has to be '.csv'"")
     
     try:
         args = parser.parse_args()
