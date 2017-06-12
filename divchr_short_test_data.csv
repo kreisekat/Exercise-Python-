@@ -1,9 +1,0 @@
-,chromosome,position,c1,c2,statsval,seq
-1,chr11_ref_v2,10,201,121,0.1,TGCCCCTCCT
-2,chr11_ref_v2,11,134,70,0.4,TTTCCCTTTC
-3,chr11_ref_v2,12,61,20,0.3,TTTTCCCTTT
-4,chr11_ref_v2,20,85,41,0.2,TGCTTCTTTT
-5,chr10_ref_v2,10,201,121,0.2,TGCCCCTCCT
-6,chr10_ref_v2,13,134,70,0.4,TTTCCCTTTC
-7,chr1_ref_v2,20,61,20,0.1,TTTTCCCTTT
-8,chr1_ref_v2,400,85,41,0.3,TGCTTCTTTT
