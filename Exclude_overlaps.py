@@ -54,7 +54,7 @@ def in_intervals(csv_file, bp_interval=1):
     which is then sorted into "sorted_list".  A new list of dictionaries 
     called filtered_list is created, where only dictionaries are appended 
     whose positions do not lie in an interval (bp_interval) around positions 
-    that are already in the list."""  
+    that are already in the list; considering the chromosome, as well."""  
     sorted_list = sort_by_statsval(csv_file)
     filtered_list = []
     # Appends first dictionary from sorted_list, because this has the lowest statsval
