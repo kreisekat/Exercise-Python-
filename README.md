@@ -8,8 +8,8 @@ each line being one dictionary, the keys being the column names (first
 line), and the values from the line being the corresponding value.   
 Statsval is converted to float and position is converted to integer.  
 A new list of dictionaries is created, filtering out positions of 
-lower significance (higher statsval) that lie withing an interval 
-(bp_interval) around positions of higher significance.  The user should 
-make sure to specify the name of the input file (.csv), the 
+lower significance (higher statsval) that lie within an interval 
+(bp_interval) around positions (on the same chromosome) of higher significance.  
+The user should make sure to specify the name of the input file (.csv), the 
 bp_interval as a whole number (will be converted to integer, by default 1) 
 and the name of the desired output file .csv.
