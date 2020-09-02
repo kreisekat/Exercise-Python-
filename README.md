@@ -1,6 +1,6 @@
 # Exercise-Python-
 
-This repository is containing my first exercises in python and is ment as a practice platform using git.
+This repository is containing my first exercises in python and is meant as a practice platform using git.
 
 Exclude_overlaps.py takes a csv file with these columns: '',chromosome,position,count1,
 count2,statsval,sequence.  It parses this file into a list of dictionaries, 
